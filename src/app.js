@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { db } = require("./config/firebase");
+
+//Importing all routers
+const endevoursRouter = require("./components/endevours/routes");
+const postsRouter = require("./components/posts/routes");
+const productsRouter = require("./components/products/routes");
+const suggestionsRouter = require("./components/suggestions/routes");
 // Set up json as must content-type header
 app.use(express.json());
 
@@ -12,15 +17,11 @@ app.use(
   })
 );
 
-app.get("/", async (req, res) => {
-  const collectionRef = db.collection("users");
-  const snapshot = await collectionRef.get();
-  const documents = snapshot.docs.map((doc) => {
-    return { id: doc.id, ...doc.data() };
-  });
-  return res.status(200).json(documents);
-});
+app.use("/api/endevours", endevoursRouter);
+app.use("/api/posts", postsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/suggestions", suggestionsRouter);
 
 app.listen(3000, () => {
-  console.log("El servidor está corriendo en el puerto 3000");
+  console.log("El servidor está corriendo en el puerto 5000");
 });
