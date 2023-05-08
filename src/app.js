@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
+const port = process.env.PORT || 3000;
 //Importing all routers
 const endevoursRouter = require("./components/endevours/routes");
 const postsRouter = require("./components/posts/routes");
@@ -22,6 +22,6 @@ app.use("/api/posts", postsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/suggestions", suggestionsRouter);
 
-app.listen(3000, () => {
-  console.log("El servidor está corriendo en el puerto 5000");
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
 });
