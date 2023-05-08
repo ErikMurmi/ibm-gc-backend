@@ -9,6 +9,13 @@ async function getPosts() {
   return posts;
 }
 
+async function createPost(post) {
+  const collectionRef = db.collection(COLLECTIONS.POSTS);
+  const result = await collectionRef.add(post);
+  return result;
+}
+
 module.exports = {
   getPosts,
+  createPost,
 };

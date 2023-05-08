@@ -9,6 +9,13 @@ async function getProducts() {
   return products;
 }
 
+async function createProduct(product) {
+  const collectionRef = db.collection(COLLECTIONS.PRODUCTS);
+  const result = await collectionRef.add(product);
+  return result;
+}
+
 module.exports = {
   getProducts,
+  createProduct,
 };

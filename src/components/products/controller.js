@@ -12,6 +12,18 @@ async function getProducts(req, res) {
   }
 }
 
+async function createProduct(req, res) {
+  try {
+    const product = req.body;
+    const createdProduct = await productsService.createProduct(product);
+    res.json(`Product registered succesfully with id ${createdProduct.id}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getProducts,
+  createProduct,
 };
