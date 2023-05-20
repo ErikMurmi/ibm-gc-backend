@@ -1,3 +1,4 @@
+const { userSchema } = require("./User");
 const usersService = require("./services");
 
 //GET: All endevours registered in app
@@ -27,8 +28,16 @@ async function getUser(req, res) {
 
 async function createUser(req, res) {
   try {
-    const user = req.body;
-    const createdUser = await usersService.create(user);
+    //Validating body data with  schema
+    const model = userSchema.safeParse(req.body);
+    if (!model.success) {
+      //Gets all validation errors into a plain array
+      const validationErrors = model.error.flatten();
+      console.error("Validation errors:", validationErrors);
+      return res.status(400).json({ errors: validationErrors });
+    }
+    //Model data contains the actual recived body object
+    const createdUser = await usersService.create(model.data);
     res.json(`User registered succesfully with id ${createdUser.id}`);
   } catch (error) {
     console.error(error);

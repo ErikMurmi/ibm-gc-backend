@@ -10,6 +10,13 @@ async function getSuggestions() {
   return suggestions;
 }
 
+async function create(suggestion) {
+  const collectionRef = db.collection(COLLECTIONS.SUGGESTIONS);
+  const result = await collectionRef.add(suggestion);
+  return result;
+}
+
 module.exports = {
   getSuggestions,
+  create,
 };

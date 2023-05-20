@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = process.env.PORT || 3000;
 //Importing all routers
 const endevoursRouter = require("./components/endevours/routes");
-const postsRouter = require("./components/salePosts/routes");
+const salePostsRouter = require("./components/salePosts/routes");
 const productsRouter = require("./components/products/routes");
 const suggestionsRouter = require("./components/suggestions/routes");
 const usersRouter = require("./components/users/routes");
@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use("/api/endevours", endevoursRouter);
-app.use("/api/salePosts", postsRouter);
+app.use("/api/salePosts", salePostsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/suggestions", suggestionsRouter);
 app.use("/api/users", usersRouter);
