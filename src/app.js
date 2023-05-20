@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = process.env.PORT || 3000;
 //Importing all routers
 const endevoursRouter = require("./components/endevours/routes");
-const postsRouter = require("./components/posts/routes");
+const postsRouter = require("./components/salePosts/routes");
 const productsRouter = require("./components/products/routes");
 const suggestionsRouter = require("./components/suggestions/routes");
 // Set up json as must content-type header
@@ -18,7 +18,7 @@ app.use(
 );
 
 app.use("/api/endevours", endevoursRouter);
-app.use("/api/posts", postsRouter);
+app.use("/api/salePosts", postsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/suggestions", suggestionsRouter);
 

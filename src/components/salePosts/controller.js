@@ -15,7 +15,7 @@ async function createPost(req, res) {
   try {
     const post = req.body;
     const createdPost = await postsService.createPost(post);
-    res.json(`Post registered successfully with id ${createdPost.id}`);
+    res.json(`Sale post registered successfully with id ${createdPost.id}`);
   } catch (error) {
     console.error(error);
     res.status(500).send(error);

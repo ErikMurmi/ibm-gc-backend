@@ -1,6 +1,6 @@
 const COLLECTIONS = {
   ENDEVOURS: "endevours",
-  POSTS: "posts",
+  SALE_POSTS: "posts",
   PRODUCTS: "products",
   SUGGESTIONS: "suggestions",
 };
