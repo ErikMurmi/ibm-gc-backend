@@ -1,7 +1,7 @@
-const { userSchema } = require("./User");
-const { salePostSchema } = require("./Post");
-const { productSchema } = require("./Product");
-const { suggestionSchema } = require("./Suggestion");
+const { userSchema } = require("../components/users/User");
+const { salePostSchema } = require("../components/salePosts/salePost");
+const { productSchema } = require("../components/products/Product");
+const { suggestionSchema } = require("../components/suggestions/Suggestion");
 
 describe("userSchema().parse()", () => {
   describe("Check user object schema", () => {
