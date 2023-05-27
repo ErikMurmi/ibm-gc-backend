@@ -1,13 +1,17 @@
 const { z } = require("zod");
 
 const userSchema = z.object({
-  name: z.string(),
+  firstname: z.string(),
+  lastname: z.string(),
   phone: z.string(),
   country: z.string(),
+  password: z.string(),
   email: z.string().email(),
-  location: z.string(),
-  image: z.string(),
-  likes: z.array(z.string()),
+
+  address: z.string(),
+  //image: z.string(),
+  //likes: z.array(z.string()),
+
 });
 
 module.exports = {

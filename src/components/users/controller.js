@@ -14,12 +14,12 @@ async function getUsers(req, res) {
 
 async function getUser(req, res) {
   try {
-    const { userId } = req.params;
-    const user = await usersService.getById(userId);
+    const { uid } = req.params;
+    const user = await usersService.getById(uid);
     if (user === null) {
       res.status(404);
     }
-    res.status(204).send();
+    res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
@@ -28,8 +28,10 @@ async function getUser(req, res) {
 
 async function createUser(req, res) {
   try {
+    console.log("Create user in controller");
     //Validating body data with  schema
     const model = userSchema.safeParse(req.body);
+    console.log("USer Model: ", model);
     if (!model.success) {
       //Gets all validation errors into a plain array
       const validationErrors = model.error.flatten();
@@ -38,7 +40,7 @@ async function createUser(req, res) {
     }
     //Model data contains the actual recived body object
     const createdUser = await usersService.create(model.data);
-    res.json(`User registered succesfully with id ${createdUser.id}`);
+    res.json(createdUser);
   } catch (error) {
     console.error(error);
     res.status(500).send(error);

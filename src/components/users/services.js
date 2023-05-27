@@ -1,5 +1,5 @@
 const { COLLECTIONS } = require("../../utils/collections");
-const { db } = require("../../config/firebase");
+const { db, auth } = require("../../config/firebase");
 const { returnWithId } = require("../../utils/docFunctions");
 
 //GET: All endevours registered in app
@@ -10,22 +10,45 @@ async function getAll() {
   return endevours;
 }
 
+
 async function create(user) {
-  const collectionRef = db.collection(COLLECTIONS.USERS);
-  const result = await collectionRef.add(user);
-  return result;
+  console.log("Create from back. USER: ", user);
+  // Crear el usuario en Firebase Authentication
+  const userCreated = await auth.createUser({
+    email: user.email,
+    password: user.password
+  });
+
+  // Obtener el UID del usuario creado
+  const uid = userCreated.uid;
+
+  // Crear un documento en Firestore para el usuario con los datos proporcionados
+
+  const result = await db.collection(COLLECTIONS.USERS).doc(uid).set({
+    email: user.email,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    country: user.country,
+    address: user.address,
+    phone: user.phone,
+    uid: uid
+  });
+  return user;
 }
 
-async function getById(userId) {
-  const collectionRef = db.collection(COLLECTIONS.USERS);
-  const docRef = collectionRef.doc(userId);
-  const snapshot = await docRef.get();
+async function getById(uid) {
+  const querySnapshot = await db.collection('users').where('uid', '==', uid).get();
+
   //If the snapshot does not exist user is not in database
-  if (!snapshot.exists) {
-    return null;
+  if (!querySnapshot.empty) {
+    const userDoc = querySnapshot.docs[0];
+    const user = userDoc.data();
+
+    // Retornar el usuario obtenido
+    return user;
+  } else {
+    throw new Error(`User with ID: ${uid} not found`);
   }
-  const user = snapshot.data();
-  return user;
 }
 
 async function deleteById(userId) {
