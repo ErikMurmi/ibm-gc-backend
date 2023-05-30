@@ -8,6 +8,7 @@ const productSchema = z.object({
   unitOfMeasure: z.string(),
   price: z.number().positive(),
   quantity: z.number().nonnegative(),
+  category: z.enum(["waste", "product"])
 });
 
 module.exports = {
