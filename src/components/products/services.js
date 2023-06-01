@@ -15,7 +15,16 @@ async function createProduct(product) {
   return result;
 }
 
+
+async function deleteById(productId) {
+  const collectionRef = db.collection(COLLECTIONS.PRODUCTS);
+  const docRef = collectionRef.doc(productId);
+  const result = await docRef.delete();
+  return result;
+}
+
 module.exports = {
   getProducts,
   createProduct,
+  deleteById
 };

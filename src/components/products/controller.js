@@ -1,5 +1,5 @@
-const productsService = require("./services");
 const { productSchema } = require("./Product");
+const productsService = require("./services");
 
 //GET: All endevours registered in app
 
@@ -31,8 +31,34 @@ async function createProduct(req, res) {
     res.status(500).send(error);
   }
 }
+async function deleteProduct(req, res) {
+  try {
+    console.log("params:", req.params);
+    const { productId } = req.params;
+    await productsService.deleteById(productId);
+    res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}
+
+async function updateProduct(req, res) {
+  try {
+    //Endevour with updated values
+    const newData = req.body;
+    //Extract endevourId from /api/endevours/{endevourId} as defined in routes
+    const { userId } = req.params;
+    await usersService.updateById(userId, newData);
+    res.json(`User updated succesfully`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Fail to update endevour");
+  }
+}
 
 module.exports = {
   getProducts,
   createProduct,
+  deleteProduct
 };
