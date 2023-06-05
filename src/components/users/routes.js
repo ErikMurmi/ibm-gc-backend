@@ -9,7 +9,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", getUsers);
-router.get("/:uid", getUser);
+//router.get("/:uid", getUser);
 router.post("/create", createUser);
 router.delete("/:userId", deleteUser);
 router.put("/:userId", updateUser);

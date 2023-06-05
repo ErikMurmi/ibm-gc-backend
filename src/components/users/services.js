@@ -10,13 +10,12 @@ async function getAll() {
   return endevours;
 }
 
-
 async function create(user) {
   console.log("Create from back. USER: ", user);
   // Crear el usuario en Firebase Authentication
   const userCreated = await auth.createUser({
     email: user.email,
-    password: user.password
+    password: user.password,
   });
 
   // Obtener el UID del usuario creado
@@ -31,13 +30,16 @@ async function create(user) {
     country: user.country,
     address: user.address,
     phone: user.phone,
-    uid: uid
+    uid: uid,
   });
-  return user;
+  return { ...user, uid };
 }
 
 async function getById(uid) {
-  const querySnapshot = await db.collection('users').where('uid', '==', uid).get();
+  const querySnapshot = await db
+    .collection("users")
+    .where("uid", "==", uid)
+    .get();
 
   //If the snapshot does not exist user is not in database
   if (!querySnapshot.empty) {
